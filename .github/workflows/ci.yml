@@ -55,7 +55,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
       - name: Build docker image
-        run: docker build -t github-actions-workshop:latest .
+        run: docker build -t workflow:latest .
   
   docker-push:
     runs-on: ubuntu-latest
@@ -78,7 +78,7 @@ jobs:
         id: extract_metadata
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-workshop
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/workflow
           tags: |
             type=raw,value=latest
             type=raw,value=main,enable={{is_default_branch}}
@@ -102,4 +102,5 @@ jobs:
     steps:
       - name: Trigger render PROD deploy
         run: curl -X POST "${{ secrets.RENDER_PROD_DEPLOY_HOOK }}"
-  #TEST
+
+  
